@@ -43,7 +43,8 @@ public class ApplicationService {
         return mapper.map(applicationRepository.save(entityToUpdate), ApplicationDTO.class);
     }
 
-    public void deleteApplication(String appId) {
+    public void deleteApplication(Long appId) {
+
         applicationRepository.deleteById(appId);
     }
 }

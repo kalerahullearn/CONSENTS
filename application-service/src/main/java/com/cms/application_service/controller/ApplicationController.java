@@ -2,6 +2,7 @@ package com.cms.application_service.controller;
 
 import com.cms.application_service.service.ApplicationService;
 import com.cms.dto.ApplicationDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,13 +11,10 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ApplicationController {
 
-    private final ApplicationService service;
+    @Autowired
+    private ApplicationService service;
 
-    public ApplicationController(ApplicationService service) {
-        this.service = service;
-    }
-
-    @GetMapping("")
+    @GetMapping("/")
     public List<ApplicationDTO> getAll() {
         return service.getAllApplications();
     }
@@ -37,7 +35,7 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/{appId}")
-    public void delete(@PathVariable String appId) {
+    public void delete(@PathVariable Long appId) {
         service.deleteApplication(appId);
     }
 }
