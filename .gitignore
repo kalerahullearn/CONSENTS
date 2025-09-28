@@ -1,0 +1,60 @@
+# -----------------
+# Java / Build
+# -----------------
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+
+# Maven / Gradle
+target/
+build/
+out/
+
+# -----------------
+# IntelliJ IDEA
+# -----------------
+.idea/
+*.iws
+*.iml
+*.ipr
+*.class
+*.jar
+*.war
+*.ear
+
+# -----------------
+# Eclipse
+# -----------------
+.metadata/
+*.tmp
+*.bak
+*.swp
+.project
+.classpath
+.settings/
+
+# -----------------
+# Spring Boot
+# -----------------
+spring.log
+logs/
+*.log
+
+# -----------------
+# OS Files
+# -----------------
+.DS_Store
+Thumbs.db
+
+# -----------------
+# Others
+# -----------------
+*.log.*
+*.tmp
+*.out
+*.db
+*.h2.db
+*.mv.db
