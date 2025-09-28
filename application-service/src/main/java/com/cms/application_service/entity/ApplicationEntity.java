@@ -9,8 +9,8 @@ public class ApplicationEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String appId;
-    @Column(name = "app_display_id")
+    private Long appId;
+    @Column(name = "app_display_id", updatable = false)
     private String appDisplayId;
     @Column(name = "app_name")
     private String appName;

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ApplicationDTO extends AuditDTO {
 
-    private String appId;
+    private Long appId;
     private String appDisplayId;
     private String appName;
     private String ownerEmail;

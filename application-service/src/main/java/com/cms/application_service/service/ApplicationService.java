@@ -1,6 +1,7 @@
 package com.cms.application_service.service;
 
 import com.cms.application_service.entity.ApplicationEntity;
+import com.cms.application_service.entity.DisplayIDGenerator;
 import com.cms.application_service.repository.ApplicationRepository;
 import com.cms.dto.ApplicationDTO;
 import org.modelmapper.ModelMapper;
@@ -24,18 +25,21 @@ public class ApplicationService {
     }
 
     public ApplicationDTO getApplicationById(Long appId) {
-        ApplicationEntity entity = applicationRepository.findById(appId).orElse(new ApplicationEntity());
+        ApplicationEntity entity = applicationRepository.findById(appId).orElse(null);
+        if(entity == null) throw new RuntimeException("Application not found");
         return mapper.map(entity, ApplicationDTO.class);
     }
 
     public ApplicationDTO createApplication(ApplicationDTO app) {
         ApplicationEntity appToAdd = mapper.map(app, ApplicationEntity.class);
-        return mapper.map(applicationRepository.save(appToAdd), ApplicationDTO.class);
+        String displayId = DisplayIDGenerator.generate();
+        appToAdd.setAppDisplayId(displayId);
+        ApplicationEntity saved = applicationRepository.save(appToAdd);
+        return mapper.map(saved, ApplicationDTO.class);
     }
 
     public ApplicationDTO updateApplication(Long appId, ApplicationDTO app) {
         ApplicationDTO existing = getApplicationById(appId);
-        existing.setAppDisplayId(app.getAppDisplayId());
         existing.setAppName(app.getAppName());
         existing.setOwnerEmail(app.getOwnerEmail());
         existing.setDeploymentId(app.getDeploymentId());
@@ -44,7 +48,6 @@ public class ApplicationService {
     }
 
     public void deleteApplication(Long appId) {
-
         applicationRepository.deleteById(appId);
     }
 }
