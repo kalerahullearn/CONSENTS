@@ -4,6 +4,7 @@ import com.cms.application_service.entity.ApplicationEntity;
 import com.cms.application_service.entity.DisplayIDGenerator;
 import com.cms.application_service.repository.ApplicationRepository;
 import com.cms.dto.ApplicationDTO;
+import com.cms.exception.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ApplicationService {
 
     public ApplicationDTO getApplicationById(Long appId) {
         ApplicationEntity entity = applicationRepository.findById(appId).orElse(null);
-        if(entity == null) throw new RuntimeException("Application not found");
+        if(entity == null) throw new EntityNotFoundException("Application not found");
         return mapper.map(entity, ApplicationDTO.class);
     }
 

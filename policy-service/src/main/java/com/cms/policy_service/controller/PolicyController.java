@@ -4,6 +4,7 @@ import com.cms.dto.PolicyDTO;
 import com.cms.dto.ResponseEvent;
 import com.cms.policy_service.service.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,51 +17,51 @@ public class PolicyController {
     private PolicyService policyService;
 
     @GetMapping("/")
-    public ResponseEvent<List<PolicyDTO>> getAll() {
+    public ResponseEntity<ResponseEvent<List<PolicyDTO>>> getAll() {
         List<PolicyDTO> list = policyService.getAllPolicies();
-        return ResponseEvent.<List<PolicyDTO>>builder()
+        return ResponseEntity.ok(ResponseEvent.<List<PolicyDTO>>builder()
                 .statusCode(200)
                 .success(true)
                 .data(list)
-                .build();
+                .build());
     }
 
     @GetMapping("/{id}")
-    public ResponseEvent<PolicyDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<ResponseEvent<PolicyDTO>> getById(@PathVariable Long id) {
         PolicyDTO dto = policyService.getPolicyById(id);
-        return ResponseEvent.<PolicyDTO>builder()
+        return ResponseEntity.ok(ResponseEvent.<PolicyDTO>builder()
                 .statusCode(200)
                 .success(true)
                 .data(dto)
-                .build();
+                .build());
     }
 
     @PostMapping("/")
-    public ResponseEvent<PolicyDTO> create(@RequestBody PolicyDTO dto) {
+    public ResponseEntity<ResponseEvent<PolicyDTO>> create(@RequestBody PolicyDTO dto) {
         PolicyDTO created = policyService.createPolicy(dto);
-        return ResponseEvent.<PolicyDTO>builder()
+        return ResponseEntity.ok(ResponseEvent.<PolicyDTO>builder()
                 .statusCode(201)
                 .success(true)
                 .data(created)
-                .build();
+                .build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEvent<PolicyDTO> update(@PathVariable Long id, @RequestBody PolicyDTO dto) {
+    public ResponseEntity<ResponseEvent<PolicyDTO>> update(@PathVariable Long id, @RequestBody PolicyDTO dto) {
         PolicyDTO updated = policyService.updatePolicy(id, dto);
-        return ResponseEvent.<PolicyDTO>builder()
+        return ResponseEntity.ok(ResponseEvent.<PolicyDTO>builder()
                 .statusCode(200)
                 .success(true)
                 .data(updated)
-                .build();
+                .build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEvent<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<ResponseEvent<Void>> delete(@PathVariable Long id) {
         boolean deleted = policyService.deletePolicy(id);
-        return ResponseEvent.<Void>builder()
+        return ResponseEntity.ok(ResponseEvent.<Void>builder()
                 .statusCode(200)
                 .success(true)
-                .build();
+                .build());
     }
 }
